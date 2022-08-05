@@ -43,21 +43,19 @@ func (c *urlshortenerClient) HealthCheck(ctx context.Context, in *HealthCheckReq
 }
 
 // UrlshortenerServer is the server API for Urlshortener service.
-// All implementations must embed UnimplementedUrlshortenerServer
+// All implementations should embed UnimplementedUrlshortenerServer
 // for forward compatibility
 type UrlshortenerServer interface {
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
-	mustEmbedUnimplementedUrlshortenerServer()
 }
 
-// UnimplementedUrlshortenerServer must be embedded to have forward compatible implementations.
+// UnimplementedUrlshortenerServer should be embedded to have forward compatible implementations.
 type UnimplementedUrlshortenerServer struct {
 }
 
 func (UnimplementedUrlshortenerServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
-func (UnimplementedUrlshortenerServer) mustEmbedUnimplementedUrlshortenerServer() {}
 
 // UnsafeUrlshortenerServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to UrlshortenerServer will
