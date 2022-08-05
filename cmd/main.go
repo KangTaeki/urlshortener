@@ -13,10 +13,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
-	"github.com/banksalad/urlshortener/client"
-	"github.com/banksalad/urlshortener/config"
-	"github.com/banksalad/urlshortener/server"
-	"github.com/banksalad/urlshortener/server/db"
+	"github.com/KangTaeki/urlshortener/client"
+	"github.com/KangTaeki/urlshortener/config"
+	"github.com/KangTaeki/urlshortener/server"
+	"github.com/KangTaeki/urlshortener/server/db"
 	"github.com/banksalad/go-banksalad"
 )
 

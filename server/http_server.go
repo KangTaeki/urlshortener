@@ -9,9 +9,9 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/banksalad/go-banksalad/grpcgateway/v2"
+	"github.com/KangTaeki/urlshortener/config"
 	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
-	"github.com/banksalad/urlshortener/config"
+	"github.com/banksalad/go-banksalad/grpcgateway/v2"
 )
 
 func NewHTTPServer(ctx context.Context, cfg config.Config) (*http.Server, error) {

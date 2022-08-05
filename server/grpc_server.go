@@ -8,9 +8,9 @@ import (
 	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/banksalad/go-banksalad"
+	"github.com/KangTaeki/urlshortener/config"
 	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
-	"github.com/banksalad/urlshortener/config"
+	"github.com/banksalad/go-banksalad"
 )
 
 type UrlshortenerServer struct {

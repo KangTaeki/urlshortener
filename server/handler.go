@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/banksalad/urlshortener/server/handler"
 	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
+	"github.com/KangTaeki/urlshortener/server/handler"
 )
 
 // verify UrlshortenerServer implements all interface methods
