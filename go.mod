@@ -1,4 +1,4 @@
-module github.com/banksalad/urlshortener
+module github.com/KangTaeki/urlshortener
 
 go 1.17
 
