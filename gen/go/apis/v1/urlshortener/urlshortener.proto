@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package v1.urlshortener;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener";
+option java_outer_classname = "UrlshortenerProto";
+option java_package = "com.github.banksalad.idl.apis.v1.urlshortener";
+
+service Urlshortener {
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+    option (google.api.http) = {
+      get: "/health"
+    };
+  }
+}
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse {}
+
