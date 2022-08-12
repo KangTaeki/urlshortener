@@ -23,6 +23,12 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UrlshortenerClient interface {
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	// long url로 short url 생성
+	MakeShortUrl(ctx context.Context, in *MakeShortUrlRequest, opts ...grpc.CallOption) (*MakeShortUrlResponse, error)
+	// short url로 long url 얻기
+	GetLongUrl(ctx context.Context, in *GetLongUrlRequest, opts ...grpc.CallOption) (*GetLongUrlResponse, error)
+	// redirect short url to long url
+	RedirectShortUrl(ctx context.Context, in *RedirectShortUrlRequest, opts ...grpc.CallOption) (*RedirectShortUrlResponse, error)
 }
 
 type urlshortenerClient struct {
@@ -42,11 +48,44 @@ func (c *urlshortenerClient) HealthCheck(ctx context.Context, in *HealthCheckReq
 	return out, nil
 }
 
+func (c *urlshortenerClient) MakeShortUrl(ctx context.Context, in *MakeShortUrlRequest, opts ...grpc.CallOption) (*MakeShortUrlResponse, error) {
+	out := new(MakeShortUrlResponse)
+	err := c.cc.Invoke(ctx, "/v1.urlshortener.Urlshortener/MakeShortUrl", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *urlshortenerClient) GetLongUrl(ctx context.Context, in *GetLongUrlRequest, opts ...grpc.CallOption) (*GetLongUrlResponse, error) {
+	out := new(GetLongUrlResponse)
+	err := c.cc.Invoke(ctx, "/v1.urlshortener.Urlshortener/GetLongUrl", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *urlshortenerClient) RedirectShortUrl(ctx context.Context, in *RedirectShortUrlRequest, opts ...grpc.CallOption) (*RedirectShortUrlResponse, error) {
+	out := new(RedirectShortUrlResponse)
+	err := c.cc.Invoke(ctx, "/v1.urlshortener.Urlshortener/RedirectShortUrl", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UrlshortenerServer is the server API for Urlshortener service.
 // All implementations should embed UnimplementedUrlshortenerServer
 // for forward compatibility
 type UrlshortenerServer interface {
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	// long url로 short url 생성
+	MakeShortUrl(context.Context, *MakeShortUrlRequest) (*MakeShortUrlResponse, error)
+	// short url로 long url 얻기
+	GetLongUrl(context.Context, *GetLongUrlRequest) (*GetLongUrlResponse, error)
+	// redirect short url to long url
+	RedirectShortUrl(context.Context, *RedirectShortUrlRequest) (*RedirectShortUrlResponse, error)
 }
 
 // UnimplementedUrlshortenerServer should be embedded to have forward compatible implementations.
@@ -55,6 +94,15 @@ type UnimplementedUrlshortenerServer struct {
 
 func (UnimplementedUrlshortenerServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
+}
+func (UnimplementedUrlshortenerServer) MakeShortUrl(context.Context, *MakeShortUrlRequest) (*MakeShortUrlResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MakeShortUrl not implemented")
+}
+func (UnimplementedUrlshortenerServer) GetLongUrl(context.Context, *GetLongUrlRequest) (*GetLongUrlResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLongUrl not implemented")
+}
+func (UnimplementedUrlshortenerServer) RedirectShortUrl(context.Context, *RedirectShortUrlRequest) (*RedirectShortUrlResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RedirectShortUrl not implemented")
 }
 
 // UnsafeUrlshortenerServer may be embedded to opt out of forward compatibility for this service.
@@ -86,6 +134,60 @@ func _Urlshortener_HealthCheck_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Urlshortener_MakeShortUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MakeShortUrlRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UrlshortenerServer).MakeShortUrl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.urlshortener.Urlshortener/MakeShortUrl",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UrlshortenerServer).MakeShortUrl(ctx, req.(*MakeShortUrlRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Urlshortener_GetLongUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLongUrlRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UrlshortenerServer).GetLongUrl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.urlshortener.Urlshortener/GetLongUrl",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UrlshortenerServer).GetLongUrl(ctx, req.(*GetLongUrlRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Urlshortener_RedirectShortUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RedirectShortUrlRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UrlshortenerServer).RedirectShortUrl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.urlshortener.Urlshortener/RedirectShortUrl",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UrlshortenerServer).RedirectShortUrl(ctx, req.(*RedirectShortUrlRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Urlshortener_ServiceDesc is the grpc.ServiceDesc for Urlshortener service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +198,18 @@ var Urlshortener_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HealthCheck",
 			Handler:    _Urlshortener_HealthCheck_Handler,
+		},
+		{
+			MethodName: "MakeShortUrl",
+			Handler:    _Urlshortener_MakeShortUrl_Handler,
+		},
+		{
+			MethodName: "GetLongUrl",
+			Handler:    _Urlshortener_GetLongUrl_Handler,
+		},
+		{
+			MethodName: "RedirectShortUrl",
+			Handler:    _Urlshortener_RedirectShortUrl_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
