@@ -10,13 +10,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/sirupsen/logrus"
-	"google.golang.org/grpc"
-
 	"github.com/KangTaeki/urlshortener/client"
 	"github.com/KangTaeki/urlshortener/config"
 	"github.com/KangTaeki/urlshortener/server"
 	"github.com/KangTaeki/urlshortener/server/db"
+	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc"
+
 	"github.com/banksalad/go-banksalad"
 )
 

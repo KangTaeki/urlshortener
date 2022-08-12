@@ -14,9 +14,69 @@ service Urlshortener {
       get: "/health"
     };
   }
+
+  // long url로 short url 생성
+  rpc MakeShortUrl(MakeShortUrlRequest) returns (MakeShortUrlResponse) {
+    option (google.api.http) = {
+      get: "/v1/urlshortener/makeshorturl"
+      additional_bindings: {
+        get: "/external/v1/urlshortener/makeshorturl"
+      }
+    };
+  }
+
+  // short url로 long url 얻기
+  rpc GetLongUrl(GetLongUrlRequest) returns (GetLongUrlResponse) {
+    option (google.api.http) = {
+      get: "/v1/urlshortener/getlongurl"
+      additional_bindings: {
+        get: "/external/v1/urlshortener/getlongurl"
+      }
+    };
+  }
+
+  // redirect short url to long url
+  rpc RedirectShortUrl(RedirectShortUrlRequest) returns (RedirectShortUrlResponse) {
+    option (google.api.http) = {
+      get: "/v1/urlshortener/redirect"
+      additional_bindings: {
+        get: "/external/v1/urlshortener/redirect"
+      }
+    };
+  }
 }
 
 message HealthCheckRequest {}
 
 message HealthCheckResponse {}
 
+message MakeShortUrlRequest {
+  // short url 생성할 long url 요청
+  string long_url = 1;
+}
+
+message MakeShortUrlResponse {
+  // 생성된 short url 반환
+  string short_url = 1;
+}
+
+message GetLongUrlRequest {
+  // short url로 매핑된(저장된) long url 얻기 요청
+  string short_url = 1;
+}
+
+message GetLongUrlResponse {
+  // short url에 매핑된(저장된) long url 반환
+  string long_url = 1;
+}
+
+message RedirectShortUrlRequest {
+  // short url을 입력 받아서 long url을 찾으면 redirect
+  string short_url = 1;
+}
+
+// If OK, HTTP status code is redirect(302)
+// short url로 들어온 요청을 long url로 redirect
+message RedirectShortUrlResponse {
+  string redirect_url = 1;
+}

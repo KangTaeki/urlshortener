@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-
 	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
 )
 

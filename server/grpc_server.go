@@ -3,13 +3,13 @@ package server
 import (
 	"time"
 
+	"github.com/KangTaeki/urlshortener/config"
+	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/KangTaeki/urlshortener/config"
-	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
 	"github.com/banksalad/go-banksalad"
 )
 

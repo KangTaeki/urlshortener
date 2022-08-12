@@ -3,11 +3,11 @@ package urlshortener
 import (
 	"sync"
 
+	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/banksalad/go-banksalad"
-	"github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener"
 )
 
 //go:generate mockgen -package urlshortener -destination ./mock_client.go -mock_names UrlshortenerClient=MockUrlshortenerClient github.com/KangTaeki/urlshortener/gen/go/apis/v1/urlshortener UrlshortenerClient
